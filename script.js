@@ -114,9 +114,9 @@ function showImage() {
     weatherIcon.style.display = 'block'; // Make the image visible once it's loaded
 }
 
-function convertTemp(K){
-    K = parseInt(K);
-    let F = (K - 273.15) * 9/5 + 32;
+function convertTemp(tempdata){
+    tempdata = parseInt(tempdata);
+    let F = (tempdata - 273.15) * 9/5 + 32;
     F = Math.floor(F);
     return F+`&deg;F`;
     }
