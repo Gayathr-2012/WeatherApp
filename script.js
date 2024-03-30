@@ -72,7 +72,7 @@ function displayData(data) {
         const wind = data.wind.speed;
         const humidity = data.main.humidity;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
-        const temperatureHTML = `<p>${convertTemp(temperature)}°C</p>`;
+        const temperatureHTML = `<p>${convertTemp(temperature)}</p>`;
         const weatherHtml = `<p>City:${cityName}</p><p>Desc:${description}</p><p>Wind:${wind}</p>
         <p>Humidity:${humidity}</p>`;
 
@@ -85,7 +85,7 @@ function displayData(data) {
 }
 
 function displayHourlyForecast(hourlyData) {
-    //console.log(hourlyData);
+    console.log(hourlyData);
     const hourlyForecastDiv = document.getElementById('hourly-forecast');
 
     const next24Hours = hourlyData.slice(0, 8); // Display the next 24 hours (3-hour intervals)
@@ -93,7 +93,7 @@ function displayHourlyForecast(hourlyData) {
     next24Hours.forEach(item => {
         const dateTime = new Date(item.dt * 1000); // Convert timestamp to milliseconds
         const hour = dateTime.getHours();
-        const temperature = Math.round(item.main.temp - 273.15); // Convert to Celsius
+        const temperature = convertCelc(item.main.temp); // Convert to Celsius
         const iconCode = item.weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -115,8 +115,17 @@ function showImage() {
 }
 
 function convertTemp(tempdata){
+  //  celsius = (fahrenheit - 32) * 5/9
     tempdata = parseInt(tempdata);
-    let F = (tempdata - 273.15) * 9/5 + 32;
+    let F = (tempdata  * 9/5 )+ 32;
     F = Math.floor(F);
     return F+`&deg;F`;
     }
+
+function convertCelc(tempdata)
+{
+    tempdata = parseInt(tempdata);
+    let c = (tempdata - 32) * 5/9
+    c = Math.floor(c);
+    return c+`&deg;`;
+}
